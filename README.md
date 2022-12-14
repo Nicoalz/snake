@@ -10,7 +10,7 @@ You will need to have Python installed on your system. This game has been tested
 You will also need to install the pygame libraries. This can be done by running the following command:
 
 ```bash
-pip install time pygame
+pip install pygame
 ```
 
 ### Running the game
