@@ -13,7 +13,9 @@ foodInit = True
 xChange = 0
 yChange = 0
 clock = pygame.time.Clock()
-
+file = open("highscore.txt", "r")
+highscore = int(file.read())
+file.close()
 def displatMessage(message, color):
     font_style = pygame.font.SysFont(None, 50)
     mesg = font_style.render(message, True, color)
@@ -23,6 +25,12 @@ def displayScore(score):
     font_style = pygame.font.SysFont(None, 30)
     value = font_style.render(
         "Your Score: " + str(score), True, (255, 255, 255))
+    screen.blit(value, [0, 30])
+
+def displayHighScore(highestScore):
+    font_style = pygame.font.SysFont(None, 30)
+    value = font_style.render(
+        "Highest Score: " + str(highestScore), True, (255, 255, 255))
     screen.blit(value, [0, 0])
 
 while not game_over:
@@ -54,11 +62,17 @@ while not game_over:
         snake.levelUp()
 
     displayScore(snake.length - 1)
+    displayHighScore(highscore)
     pygame.display.update()
     game_over = snake.isCollision(screenWidth, screenHeight)
     clock.tick(30)
 
 displatMessage("You Lost", (255, 0, 0))
 pygame.display.update()
+
+if snake.length - 1 > highscore:
+    file = open("highscore.txt", "w")
+    file.write(str(snake.length - 1))
+    file.close()
 time.sleep(2)
 pygame.quit()
